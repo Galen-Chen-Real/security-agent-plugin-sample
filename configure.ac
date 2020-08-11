@@ -1,0 +1,17 @@
+#!/bin/sh
+AC_INIT([MyTest], [1.0], [bug-automake@gnu.org])
+AM_INIT_AUTOMAKE([foreign])
+AC_PROG_CC
+AC_PROG_CXX
+AC_CONFIG_FILES([Makefile])
+
+AC_PROG_LIBTOOL
+
+DARWIN_MIN_DEPLOYMENT_TARGET="10.13"
+
+C_AND_CXX_FLAGS="-stdlib=libc++ -mmacosx-version-min=$DARWIN_MIN_DEPLOYMENT_TARGET"
+
+CFLAGS="$C_AND_CXX_FLAGS"
+CXXFLAGS="$C_AND_CXX_FLAGS"
+
+AC_OUTPUT
