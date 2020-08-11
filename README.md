@@ -27,7 +27,7 @@ Log out and log in, you can see this plugin log on the system.log.
 $ sudo tail -f /var/log/system.log | grep -E "authorizationhosthelper"
 ```
 
-## 4. Disable this plugin:
+## 5. Disable this plugin:
 ```
 $ sudo /Library/Security/SecurityAgentPlugins/MyTest.bundle/Contents/Resources/config.sh disable
 ```

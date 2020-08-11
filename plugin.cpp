@@ -16,7 +16,7 @@ AuthorizationPluginCreate(const AuthorizationCallbacks* callbacks,
         AuthorizationPluginRef* outPlugin,
         const AuthorizationPluginInterface** outPluginInterface)
 {
-    syslog(LOG_INFO, "call AuthorizationPluginCreate");
+    syslog(LOG_ERR, "call AuthorizationPluginCreate");
     try {
         *outPlugin = MyTestPlugin::createMyTestPlugin(callbacks);
         if (*outPlugin == 0) {

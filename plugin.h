@@ -17,13 +17,13 @@ struct MyTestPlugin
         m_authCallbacks(callbacks), m_mechanismsId(AUTH_MECHANISM_ID) {}
 
     static AuthorizationPluginRef createMyTestPlugin(const AuthorizationCallbacks* callbacks) {
-        syslog(LOG_INFO, "create plugin");
+        syslog(LOG_ERR, "create plugin");
         MyTestPlugin* plugin = new MyTestPlugin(callbacks);
         return plugin;
     }
 
     static OSStatus destroyMyTestPlugin(AuthorizationPluginRef inPlugin) {
-        syslog(LOG_INFO, "destory plugin");
+        syslog(LOG_ERR, "destory plugin");
         MyTestPlugin* plugin = (MyTestPlugin*) inPlugin;
         delete plugin;
         return errAuthorizationSuccess;
@@ -42,7 +42,7 @@ struct MyTestMechanism
                                         AuthorizationEngineRef inEngine,
                                         AuthorizationMechanismId  mechanismId,
                                         AuthorizationMechanismRef *outMechanism) {
-        syslog(LOG_INFO, "create mechanism");
+        syslog(LOG_ERR, "create mechanism");
         MyTestPlugin* plugin = (MyTestPlugin*) inPlugin;
         if (plugin->m_mechanismsId != std::string(mechanismId)) {
             syslog(LOG_ERR, "mechanism id '%s' not vaild", mechanismId);
@@ -60,7 +60,7 @@ struct MyTestMechanism
     static OSStatus invokeMyTestMechanism(AuthorizationMechanismRef inMechanism) {
         MyTestMechanism* mechanism = (MyTestMechanism*) inMechanism;
         try {
-            syslog(LOG_INFO, "invoke mechanism");
+            syslog(LOG_ERR, "invoke mechanism");
             return mechanism->m_plugin->m_authCallbacks->SetResult(mechanism->m_engineRef, kAuthorizationResultAllow);
         } catch (std::exception& e) {
             syslog(LOG_ERR, "invoke mechanism failed: %s", e.what());
@@ -71,7 +71,7 @@ struct MyTestMechanism
     static OSStatus deactivateMyTestMechanism(AuthorizationMechanismRef inMechanism) {
         MyTestMechanism* mechanism = (MyTestMechanism*) inMechanism;
         try {
-            syslog(LOG_INFO, "deactivate mechanism");
+            syslog(LOG_ERR, "deactivate mechanism");
             return mechanism->m_plugin->m_authCallbacks->DidDeactivate(mechanism->m_engineRef);
         } catch (std::exception& e) {
             syslog(LOG_ERR, "deactivate mechanism failed: %s", e.what());
@@ -80,7 +80,7 @@ struct MyTestMechanism
     }
 
     static OSStatus destroyMyTestMechanism(AuthorizationMechanismRef inMechanism) {
-        syslog(LOG_INFO, "destroy mechanism");
+        syslog(LOG_ERR, "destroy mechanism");
         MyTestMechanism* mechanism = (MyTestMechanism*)inMechanism;
         delete mechanism;
         return noErr;
